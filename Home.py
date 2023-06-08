@@ -1,8 +1,7 @@
 import streamlit as st
-from langchain.llms import OpenAI
-import whisper
 import os
 from tempfile import NamedTemporaryFile
+from langchain.llms import OpenAI
 import openai
 
 os.environ['KMP_DUPLICATE_LIB_OK']='True'
