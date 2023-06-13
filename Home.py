@@ -21,9 +21,13 @@ if audio_file:
         result = openai.Audio.transcribe("whisper-1", audio_file)
         st.write(result["text"])
     txt_file_name = audio_file.name.replace(".m4a", ".txt")
+    with open('prompt.txt', 'w') as f:
+        prompt = f.read()
+
+    data = prompt + "\n\n" + result["text"]
     st.download_button(
             label="Download text data",
-            data=result["text"],
+            data=data,
             file_name= txt_file_name,
             mime="text/plain"
         )
@@ -33,7 +37,7 @@ st.markdown('----------')
 
 
 with st.form('my_form'):
-  instructions = st.text_area('Put any prompt instructions here.', ' ')
+  instructions = st.text_area('Put any prompt instructions here if you would like to replace the default.', prompt)
   submitted = st.form_submit_button('Submit')
   if not openai_api_key.startswith('sk-'):
     st.warning('Please enter your OpenAI API key!', icon='⚠')
