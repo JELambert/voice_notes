@@ -20,11 +20,11 @@ if audio_file:
     with st.spinner("Transcribing..."):
         result = openai.Audio.transcribe("whisper-1", audio_file)
         st.write(result["text"])
-
+    txt_file_name = audio_file.name.replace(".m4a", ".txt")
     st.download_button(
             label="Download text data",
             data=result["text"],
-            file_name=audio_file.name + ".txt",
+            file_name= txt_file_name,
             mime="text/plain"
         )
 
