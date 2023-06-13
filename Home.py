@@ -15,14 +15,16 @@ def generate_response(input_text):
   llm = OpenAI(temperature=0.7, openai_api_key=openai_api_key)
   st.markdown(llm(input_text))
 
+with open('prompt.txt', 'w') as f:
+    prompt = f.read()
+    
 audio_file = st.file_uploader('Upload your audio file:', type='m4a')
 if audio_file:
     with st.spinner("Transcribing..."):
         result = openai.Audio.transcribe("whisper-1", audio_file)
         st.write(result["text"])
     txt_file_name = audio_file.name.replace(".m4a", ".txt")
-    with open('prompt.txt', 'w') as f:
-        prompt = f.read()
+
 
     data = prompt + "\n\n" + result["text"]
     st.download_button(
