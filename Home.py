@@ -21,6 +21,12 @@ if audio_file:
         result = openai.Audio.transcribe("whisper-1", audio_file)
         st.write(result["text"])
 
+    st.download_button(
+            label="Download text data",
+            data=result["text"],
+            file_name=audio_file.name + ".txt",
+            mime="text/plain"
+        )
 
 st.markdown('\n')
 st.markdown('----------')
